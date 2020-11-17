@@ -1,7 +1,16 @@
+export interface Card {
+    name: string;
+    revealed: boolean;
+}
+
 export interface State {
-    cards: string[];
+    cards: Card[];
+    revealed: number[];
+    counter: number;
 }
 
 export const state: State = {
-    cards: []
+    cards: [],
+    revealed: [],
+    counter: 0
 };

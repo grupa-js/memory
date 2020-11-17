@@ -1,11 +1,19 @@
 <template>
-    <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <card-grid />
+    <game-menu />
 </template>
-
+<script lang="ts">
+import { defineComponent } from "vue";
+import CardGrid from "./components/CardGrid.vue";
+import Menu from "./components/Menu.vue";
+export default defineComponent({
+    name: "App",
+    components: {
+        "game-menu": Menu,
+        "card-grid": CardGrid
+    }
+});
+</script>
 <style>
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -13,8 +21,15 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    margin: 0;
 }
-
+* {
+    box-sizing: border-box;
+}
 #nav {
     padding: 30px;
 }

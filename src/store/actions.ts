@@ -1,9 +1,9 @@
-import { State } from "./state";
+import { Card, State } from "./state";
 import { ActionContext, ActionTree } from "vuex";
 import { Mutations } from "./mutations";
 import { PackageObject } from "./actions-types";
 
-import { shuffle } from "../utils";
+import { shuffle, sleep } from "../utils";
 
 const registryUrl =
     "https://registry.npmjs.com/-/v1/search?text=-component&popularity=1.0&quality=0.5&maintenance=0.2&"; //from=x&size=y
@@ -19,18 +19,70 @@ export interface Actions {
         { commit }: AugmentedActionContext,
         payload: { size: number }
     ): Promise<void>;
+    revealCard(
+        { state, commit }: AugmentedActionContext,
+        payload: { index: number }
+    ): Promise<void>;
 }
+interface Cache {
+    timesUsed: number;
+    Cards: string[];
+}
+const cache: Cache = { timesUsed: 0, Cards: [] };
 
 export const actions: ActionTree<State, State> & Actions = {
     async generateCards({ commit }, payload) {
-        const from = Math.floor(Math.random() * 25);
-        const queryUrl =
-            registryUrl + `from=${from}&size=${from + payload.size ** 2 / 2}`;
-        const packages = await (await fetch(queryUrl)).json();
-        const packageNames = packages.objects.map(
-            (pkg: PackageObject) => pkg.package.name
+        const from = Math.floor(Math.random() * 49);
+        if (cache.Cards.length < payload.size / 2 || cache.timesUsed > 20) {
+            cache.Cards = shuffle(
+                cache.Cards.slice(0, cache.Cards.length / 2)
+            ) as string[];
+            const queryUrl =
+                registryUrl + `from=${from}&size=${payload.size / 2}`;
+            const packages = await (await fetch(queryUrl)).json();
+            const Cards = packages.objects.map((pkg: PackageObject) => ({
+                name: pkg.package.name,
+                revealed: false
+            }));
+            cache.Cards.unshift(...Cards);
+            // if there are some duplicates just use the new value
+            if (new Set(cache.Cards).size < cache.Cards.length)
+                cache.Cards = Cards;
+            cache.timesUsed = 0;
+        }
+        const unshuffledCards = JSON.stringify(
+            cache.Cards.slice(0, payload.size / 2)
         );
-        const cards = shuffle(packageNames);
+        const cards = shuffle([
+            ...JSON.parse(unshuffledCards),
+            ...JSON.parse(unshuffledCards)
+        ]) as Card[];
         commit("setCards", { cards });
+        cache.timesUsed++;
+    },
+    async revealCard({ state, commit }, payload) {
+        if (state.revealed.length < 2) {
+            commit("revealCard", { index: payload.index });
+            if (state.revealed.length === 2) {
+                if (
+                    state.cards[state.revealed[0]].name ===
+                    state.cards[state.revealed[1]].name
+                )
+                    commit("clearRevealed", undefined);
+                else {
+                    await sleep(2000);
+                    if (state.revealed.length === 2)
+                        commit("hideCards", {
+                            indexes: [...state.revealed, payload.index]
+                        });
+                }
+            }
+        } else {
+            commit("hideCards", {
+                indexes: [...state.revealed, payload.index]
+            });
+            await sleep(100);
+            commit("revealCard", { index: payload.index });
+        }
     }
 };
