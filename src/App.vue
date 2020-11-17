@@ -1,6 +1,6 @@
 <template>
-    <card-grid />
     <game-menu />
+    <card-grid />
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

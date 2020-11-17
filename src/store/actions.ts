@@ -43,7 +43,10 @@ export const actions: ActionTree<State, State> & Actions = {
             const packages = await (await fetch(queryUrl)).json();
             const Cards = packages.objects.map((pkg: PackageObject) => ({
                 name: pkg.package.name,
-                revealed: false
+                description: pkg.package.description.substring(0, 125),
+                link: pkg.package.links.npm ?? "#",
+                revealed: false,
+                found: false
             }));
             cache.Cards.unshift(...Cards);
             // if there are some duplicates just use the new value

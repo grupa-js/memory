@@ -1,11 +1,11 @@
 <template>
     <div class="menu">
         <h1>Memory</h1>
-        <h3 v-if="score > 0">
-            Ilość ruchów {{ score }} (im mniejszy tym lepszy)
-        </h3>
+        <h4 class="score-counter" v-if="score > 0">
+            Ilość ruchów: {{ score }}
+        </h4>
         <label for="size-select">Wybierz poziom trudności</label>
-        <select v-model="size" @change="generate">
+        <select v-model="size">
             <option value="12">bardzo małe (6 par)</option>
             <option value="24">małe (12 par)</option>
             <option value="36">średnie (18 par)</option>
@@ -19,6 +19,7 @@
                 par)</option
             >
         </select>
+        <button @click="generate">Generuj</button>
     </div>
 </template>
 <script lang="ts">
@@ -44,4 +45,10 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.score-counter {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+</style>

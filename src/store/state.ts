@@ -1,7 +1,9 @@
 export interface Card {
     name: string;
+    description: string;
     revealed: boolean;
     found: boolean;
+    link: string;
 }
 
 export interface State {

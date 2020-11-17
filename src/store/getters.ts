@@ -12,5 +12,12 @@ export const getters: GetterTree<State, State> & Getters = {
     },
     score(state) {
         return state.counter;
+    },
+    won(state) {
+        if (state.cards.length === 0) return false;
+        for (const card of state.cards) {
+            if (!card.found) return false;
+        }
+        return true;
     }
 };

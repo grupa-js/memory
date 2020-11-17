@@ -33,6 +33,9 @@ export const mutations: MutationTree<State> & Mutations = {
         state.counter++;
     },
     clearRevealed(state) {
+        for (const index of state.revealed) {
+            state.cards[index].found = true;
+        }
         state.revealed = [];
         state.counter++;
     },
