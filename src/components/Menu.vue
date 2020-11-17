@@ -1,6 +1,9 @@
 <template>
     <div class="menu">
         <h1>Memory</h1>
+        <h3 v-if="score > 0">
+            Ilość ruchów {{ score }} (im mniejszy tym lepszy)
+        </h3>
         <label for="size-select">Wybierz poziom trudności</label>
         <select v-model="size" @change="generate">
             <option value="12">bardzo małe (6 par)</option>
@@ -19,12 +22,13 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import store from "../store";
 
 export default defineComponent({
     data() {
-        return { size: "12" };
+        const score = computed(() => store.getters.score);
+        return { size: "12", score };
     },
     methods: {
         async generate(e?: Event) {

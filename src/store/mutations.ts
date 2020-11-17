@@ -7,6 +7,7 @@ export type Mutations<S = State> = {
     hideCard(state: S, payload: { index: number }): void;
     hideCards(state: S, payload: { indexes: number[] }): void;
     clearRevealed(state: S): void;
+    resetCounter(state: S): void;
 };
 
 export const mutations: MutationTree<State> & Mutations = {
@@ -21,6 +22,7 @@ export const mutations: MutationTree<State> & Mutations = {
         state.cards[payload.index].revealed = false;
         const i = state.revealed.indexOf(payload.index);
         if (i >= 0) state.revealed.splice(i, 1);
+        state.counter++;
     },
     hideCards(state, payload) {
         for (const index of payload.indexes) {
@@ -28,9 +30,13 @@ export const mutations: MutationTree<State> & Mutations = {
             const i = state.revealed.indexOf(index);
             if (i >= 0) state.revealed.splice(i, 1);
         }
+        state.counter++;
     },
     clearRevealed(state) {
         state.revealed = [];
         state.counter++;
+    },
+    resetCounter(state) {
+        state.counter = 0;
     }
 };

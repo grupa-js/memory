@@ -1,6 +1,7 @@
 export interface Card {
     name: string;
     revealed: boolean;
+    found: boolean;
 }
 
 export interface State {

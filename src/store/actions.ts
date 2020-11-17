@@ -32,6 +32,7 @@ const cache: Cache = { timesUsed: 0, Cards: [] };
 
 export const actions: ActionTree<State, State> & Actions = {
     async generateCards({ commit }, payload) {
+        commit("resetCounter", undefined);
         const from = Math.floor(Math.random() * 49);
         if (cache.Cards.length < payload.size / 2 || cache.timesUsed > 20) {
             cache.Cards = shuffle(
@@ -70,7 +71,7 @@ export const actions: ActionTree<State, State> & Actions = {
                 )
                     commit("clearRevealed", undefined);
                 else {
-                    await sleep(2000);
+                    await sleep(1000);
                     if (state.revealed.length === 2)
                         commit("hideCards", {
                             indexes: [...state.revealed, payload.index]

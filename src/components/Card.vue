@@ -12,7 +12,8 @@ import store from "../store";
 export default defineComponent({
     methods: {
         async reveal(e: Event) {
-            await store.dispatch("revealCard", { index: this.index });
+            if (!this.revealed)
+                await store.dispatch("revealCard", { index: this.index });
         }
     },
     name: "memory-card",
@@ -24,12 +25,25 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .card {
-    min-width: 10vw;
-    widows: 100%;
-    min-height: 10vw;
-    height: 100%;
+    width: 100%;
+    height: 10vw;
     background-color: aqua;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+.card.revealed {
+    background-color: rgba(0, 255, 255, 0.2);
+}
+.card-text {
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
 }
 </style>
