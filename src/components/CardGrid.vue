@@ -12,11 +12,11 @@
         />
     </div>
     <div class="win-screen" v-if="won">
-        <h1>You successfully revealed all cards in {{ score }} moves!</h1>
+        <h1>Udało ci się odsłonić wszystkie karty w {{ score }} ruchach!</h1>
         <h3>
-            The best possible score for a map of this size would be
-            {{ cards.length / 2 }}, but it's only possible with inhuman amount
-            of luck!
+            Najlepszym możliwym wynikiem byłoby
+            {{ cards.length / 2 }} ruchów, lecz jest to możliwe wyłącznie z
+            nieludzkim szczęściem!
         </h3>
     </div>
 </template>
