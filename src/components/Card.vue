@@ -36,7 +36,7 @@ export default defineComponent({
 .card {
     width: 100%;
     height: 10vw;
-    background-color: aqua;
+    background-color: rgb(0, 110, 255);
     font-size: 2rem;
     font-weight: 500;
     text-align: center;
@@ -48,6 +48,8 @@ export default defineComponent({
     transform-style: preserve-3d;
     transition: transform 0.8s;
     transform: rotateX(180deg);
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 0px grey;
 }
 .card::after {
     content: "";
@@ -56,20 +58,21 @@ export default defineComponent({
     position: absolute;
     top: 0px;
     left: 0px;
-    background-color: aqua;
+    background-color: rgb(0, 110, 255);
     transform-style: preserve-3d;
     transform: rotateX(0deg);
     backface-visibility: hidden;
+    border-radius: 15px;
 }
 .card.revealed {
-    background-color: rgba(0, 255, 255, 0.4);
+    background-color: rgb(0, 83, 190);
     transform: rotateX(0deg);
 }
 .card.revealed::after {
     transform: rotateX(180deg);
 }
 .card.found {
-    background-color: rgba(0, 255, 255, 0.15);
+    background-color: rgba(0, 59, 136, 0.15);
 }
 .card-text {
     color: #000;
