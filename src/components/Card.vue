@@ -45,9 +45,28 @@ export default defineComponent({
     justify-content: center;
     align-content: center;
     position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    transform: rotateX(180deg);
+}
+.card::after {
+    content: "";
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: aqua;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg);
+    backface-visibility: hidden;
 }
 .card.revealed {
     background-color: rgba(0, 255, 255, 0.4);
+    transform: rotateX(0deg);
+}
+.card.revealed::after {
+    transform: rotateX(180deg);
 }
 .card.found {
     background-color: rgba(0, 255, 255, 0.15);
@@ -58,6 +77,7 @@ export default defineComponent({
     font-weight: 800;
     text-transform: uppercase;
     text-decoration: none;
+    backface-visibility: hidden;
 }
 .description {
     position: absolute;
