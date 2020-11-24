@@ -51,4 +51,25 @@ export default defineComponent({
     top: 0;
     right: 0;
 }
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+button {
+    background-color: rgba(0, 59, 136, 0.15);
+    border-radius: 10px;
+    width: 10rem;
+    box-shadow: none;
+    margin-top: 0.5rem;
+}
+select {
+    border-radius: 5px;
+    background-color: rgba(0, 59, 136, 0.15);
+    text-align: center;
+}
+select > option {
+    text-align: center;
+}
 </style>

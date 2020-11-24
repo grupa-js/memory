@@ -61,31 +61,31 @@ export default defineComponent({
     height: 9vw;
 }
 .size-36 {
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(6, 1fr);
 }
 .size-36 .card {
     height: 10vw;
 }
 .size-48 {
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(6, 1fr);
 }
 .size-48 .card {
     height: 10vw;
 }
 .size-72 {
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(6, 1fr);
 }
 .size-72 .card {
     height: 5vw;
 }
 .size-144 {
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(6, 1fr);
 }
 .size-144 .card {
     height: 3vw;
 }
 .size-500 {
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(5, 1fr);
 }
 .size-500 .card {
     height: 3vw;

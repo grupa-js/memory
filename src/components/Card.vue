@@ -102,7 +102,7 @@ export default defineComponent({
     margin-right: auto;
     z-index: 1;
 }
-.card.revealed:hover .description {
+.card.found:hover .description {
     visibility: visible;
 }
 </style>
